@@ -2,7 +2,7 @@
 const stage=document.getElementById('stage'),slides=[...document.querySelectorAll('.slide')],N=slides.length;
 const nav=[...document.querySelectorAll('.nv')],ink=document.querySelector('.nv-ink');
 const dotsWrap=document.querySelector('.dots'),fill=document.querySelector('.fill'),pg=document.querySelector('.pg');
-const titles=['封面','總覽','啟程','美濃湖','紙傘村','午食','老街','文物館','黃蝶/吃冰','歸途','美食','提醒','結語','來源'];
+const titles=['封面','總覽','啟程','美濃湖','紙傘村','午食','老街','文物館','黃蝶/吃冰','歸途','美食','提醒','結語'];
 titles.forEach((t,i)=>{const b=document.createElement('button');b.dataset.t=t;b.dataset.go=i+1;dotsWrap.appendChild(b)});
 const dots=[...dotsWrap.children];let cur=0;
 const mq=matchMedia('(max-width:760px)');
@@ -23,7 +23,7 @@ function go(n,push=true){n=Math.max(1,Math.min(N,n));const i=n-1;if(i===cur&&sli
  if(hit&&mq.matches)navEl.scrollTo({left:hit.offsetLeft-navEl.clientWidth/2+hit.offsetWidth/2,behavior:'smooth'});
  if(push)history.replaceState(null,'','#'+n);}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();go(+g.dataset.go);return}
- const f=e.target.closest('.ph');if(f&&!e.target.closest('.opt')&&!e.target.closest('.fcard')){const lb=document.getElementById('lightbox');lb.querySelector('img').src=f.querySelector('img').src;lb.querySelector('figcaption').textContent='📷 '+f.dataset.credit;lb.classList.add('on')}});
+ const f=e.target.closest('.ph');if(f&&!e.target.closest('.opt')&&!e.target.closest('.fcard')){const lb=document.getElementById('lightbox');lb.querySelector('img').src=f.querySelector('img').src;lb.classList.add('on')}});
 document.getElementById('lightbox').onclick=e=>e.currentTarget.classList.remove('on');
 document.querySelector('.prev').onclick=()=>go(cur);document.querySelector('.next').onclick=()=>go(cur+2);
 addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+2)}if(['ArrowLeft','PageUp'].includes(e.key))go(cur);if(e.key==='Home')go(1);if(e.key==='End')go(N);if(e.key==='Escape')document.getElementById('lightbox').classList.remove('on')});
